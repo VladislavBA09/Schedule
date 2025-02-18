@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule first</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static', filename='app_photo/logo/schedule_logo.png') }}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        </a>
+        <span class="navbar-text me-3" style="color: black">Step </span>
+        <span class="navbar-text me-3" style="color: black">4 / 4</span>
+        <span class="navbar-text me-3" id="current-time" style="color: black">Time</span>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <h1>Your Schedule</h1>
+    <div class="table-responsive">
+        {{ table_html|safe }}
+    </div>
+    <h4>Instruction</h4>
+    <h6>Nan - free day</h6>
+    <h6>X - work day</h6>
+    <h6>? - day without worker</h6>
+
+    <div class="form-floating mb-8">
+        <select class="form-select" id="fileType" name="fileType" required>
+            <option value="csv">csv</option>
+            <option value="xlsx">xlsx</option>
+        </select>
+        <label for="fileType">Choose file type</label>
+    </div>
+
+    <form method="POST" action="/fifth_step" style="margin-top: 20px;">
+        <div class="form-floating mb-3">
+            <div style="display: flex; align-items: center;">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your email" required style="flex: 1;" />
+                <span style="margin: 0 5px;">@</span>
+                <select id="domain" class="form-select" style="width: auto;">
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="yandex.ru">yandex.ru</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" id="email" name="email">
+        <button class="btn btn-primary py-2 w-100" type="submit" style="max-width: 400px; background-color: #FF4800; border-color: #FF4800;">
+            Final step
+        </button>
+    </form>
+</div>
+
+
+<script type="module">
+    import { setupEmail } from '../static/js/email.js';
+
+    setupEmail();
+</script>
+
+<script type="module">
+    import { setupNavigation } from '../static/js/navigationhandler.js';
+
+    setupNavigation();
+</script>
+
+<script src="{{ url_for('static', filename='js/time.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
